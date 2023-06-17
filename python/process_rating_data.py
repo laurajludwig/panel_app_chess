@@ -19,10 +19,6 @@
     MG  June 2023
 
 ''' 
-
-
-
-
 import re,sys 
 import pandas as pd 
 if len(sys.argv) != 4:
@@ -41,25 +37,23 @@ with open(outfile, 'w') as out:
         for r in dat:
             lstrip = r.lstrip() 
             if lstrip[0].isdigit(): 
-                
                 rtg = next(iter(re.findall(r" [0-9]{4} ",r)), None) 
                 nat = next(iter(re.findall(r" [A-Z]{3} ",r)), None) 
-        #print(rtg) # ,type(rtg)) # ,len(rtg))
-            #if int(rtg) >= 2600:
                 outputline = rtg + "\t" + nat + "\n" 
                 out.write(outputline) 
                 ctr = ctr + 1
                 if ctr > 100000000:
                     sys.exit(0)
             else:
-                print("Do not process header.") 
+                pass
+                #print("Do not process header.") 
 ds = {'ds': dictlabel }  # datestamp column label and value,  oct 2001 data source 
 data = pd.read_csv(outfile,encoding="ISO-8859-1",sep='\t',header=None,names=["rtg","nat"])
 data = data.assign(**ds) 
-data = data[['ds','nat','rtg']]
+data = data[['ds','nat','rtg']]  # reorder columns for easier to read output 
 data['rtg'] = data['rtg'].astype('int')
-data =  data[data["rtg"] > rating_cutoff] #  'Spark']data[['rtg'] > 2500] 
-print(data.head(5) )
+data =  data[data["rtg"] > rating_cutoff]   
+#print(data.head(5) )
 df2 = data.groupby(['ds','nat']).size() 
  
 results = 'C:/Users/Elite/chess/panel_app_chess/panel_app_chess/data/' + basefilename + 'final.out' 
