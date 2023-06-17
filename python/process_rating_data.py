@@ -35,6 +35,6 @@ data = pd.read_csv(outfile,encoding="ISO-8859-1",sep='\t',header=None,names=["rt
 data = data.assign(**ds) 
 df2 = data.groupby(['nat','ds']).size() 
  
-results = 'C:/Users/Elite/chess/panel_app_chess/panel_app_chess/data/oct2001nfinal.out' 
-df2.to_csv(results,index=True) 
+results = 'C:/Users/Elite/chess/panel_app_chess/panel_app_chess/data/oct2001final.out' 
+df2.to_csv(results,index=True,header=False) 
 sys.exit(0) 
