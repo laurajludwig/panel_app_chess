@@ -30,11 +30,11 @@ with open(outfile, 'w') as out:
                 ctr = ctr + 1
             if ctr > 100000000:
                 sys.exit(0) 
-
+ds = {'ds': '102001'}  # datestamp column label and value,  oct 2001 data source 
 data = pd.read_csv(outfile,encoding="ISO-8859-1",sep='\t',header=None,names=["rtg","nat"])
-
-df2 = data.groupby(['nat'])['nat'].count() 
-
-results = 'C:/Users/Elite/chess/panel_app_chess/panel_app_chess/data/oct2001final.out' 
+data = data.assign(**ds) 
+df2 = data.groupby(['nat','ds']).size() 
+ 
+results = 'C:/Users/Elite/chess/panel_app_chess/panel_app_chess/data/oct2001nfinal.out' 
 df2.to_csv(results,index=True) 
 sys.exit(0) 
