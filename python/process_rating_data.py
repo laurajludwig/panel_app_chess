@@ -52,7 +52,7 @@ data = pd.read_csv(outfile,encoding="ISO-8859-1",sep='\t',header=None,names=["rt
 data = data.assign(**ds) 
 data = data[['ds','nat','rtg']]  # reorder columns for easier to read output 
 data['rtg'] = data['rtg'].astype('int')
-data =  data[data["rtg"] > rating_cutoff]   
+data =  data[data["rtg"] >= rating_cutoff]   
 #print(data.head(5) )
 df2 = data.groupby(['ds','nat']).size() 
  
