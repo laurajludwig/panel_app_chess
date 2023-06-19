@@ -2,26 +2,18 @@
 ''' process_ratings.py RATING_CUTOFF,BASEFILENAME 
     
     For the time being it reads in a FIDE Full Ratings List (FRL) Dataset, 
-    which we fetched by wget and tar -xf, it is named like this example:  JAN05FRL.TXT 
-    pulls out the Rating and Nationality, for only players
-    whose ratings are >= RATING_CUTOFF
-    It loads those into an output flat file.  BASEFILENAME.out
+    which we fetched by wget and tar -xf and placed into /data/full.  It is named like this example:  JAN05FRL.TXT 
+
+    Pull out the Rating and Nationality, for only players whose ratings are >= RATING_CUTOFF
+    Load those into an output flat file.  BASEFILENAME.out
     The BASEFILENAME is a transformation of the input file, JAN05 --> 200501 (YYYYMM keeps sort order) 
-    Then, a dataframe is constructed called df.a  We add a small dict (assign) to df in order to represent the MMYYYY
-    This is derived from the DICTLABEL argument, for example '102001' or '012002' 
+    Then, a dataframe is constructed called df.a  We add a small dict (via 'assign') to df in order to represent the YYYYMM as a column.
+
     In the final step, a df2 dataframe counts the # of 2600-plus-players per nation and timestamp via groupby and the size() function.
-    The df2 is written out to disk.   BASEFILENAMEfinal.dat
-    
-    Usage:  first get a FIDE file from https://ratings.fide.com/download/feb01frl.zip and extract it and rename it to 
-    MMMYYYY.dat   then for example issue this:
-    python ./process_ratings.py 2600 apr2002 042002 
-    The program bypasses the string header row.
-    The program now accepts FIDE's naming convention which is, for example, APR03FRL.TXT
-    We first use wget and tar -xf to fetch the files and unzip them (all these operations can be in a single batch file) 
-    and then we run e.g. 
-        python ./process_rating_data.py 2600 JAN05FRL  
-    this composes a final summary '200501final.dat'   The program prefixes '20' to the year portion, and converts
-    JAN, APR, etc. via a small dictionary into 01, 04, etc. 
+
+    The df2 is written out to disk, example name '/data/200501final.dat' 
+    Usage example:    python ./process_rating_data.py 2600 JAN05FRL ---->     /data/200501final.dat 
+
     MG  June 2023
 
 ''' 
@@ -48,15 +40,19 @@ with open(outfile, 'w') as out:
         for r in dat:
             #print(r) 
             lstrip = r.lstrip() 
+
             if lstrip[:1].isdigit():  # guard against lstrip being empty (unzipped file may have gap between header and data) 
                 rtg = next(iter(re.findall(r" [0-9]{4} ",r)), None) 
                 
-                nat = next(iter(re.findall(r" [A-Z]{3} ",r)), None) 
+                nat = next(iter(re.findall(r" [a-zA-Z]{3} ",r)), None) 
+                nat = nat.upper()  # in JAN07FRL.TXT had an entry for 'Col' nationality 
                 if rtg is None:  # starting in 2002, people started appearing who had rating = 0 (not 4 digits) 
+
                     pass 
                     #print("Bypass a None Rating for nationality", nat) 
                     # pass
                 else:
+                    #print(rtg,nat) 
                     outputline = rtg + "\t" + nat + "\n" 
                     out.write(outputline) 
                     ctr = ctr + 1
