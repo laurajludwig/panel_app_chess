@@ -1,15 +1,16 @@
 
 ''' process_ratings.py RATING_CUTOFF,BASEFILENAME ,DICTLABEL
     
-    For the time being it reads in a FIDE Dataset, 
-    BASEFILENAME.dat 
+    For the time being it reads in a FIDE Full Ratings List (FRL) Dataset, 
+    which we fetched by wget and tar -xf, it is named like this example:  JAN05FRL.TXT 
     pulls out the Rating and Nationality, for only players
     whose ratings are >= RATING_CUTOFF
-    It loads those into an output flat file.  BASEFILENAME.out 
+    It loads those into an output flat file.  BASEFILENAME.out
+    The BASEFILENAME is a transformation of the input file, JAN05 --> 200501 (YYYYMM keeps sort order) 
     Then, a dataframe is constructed called df.a  We add a small dict (assign) to df in order to represent the MMYYYY
     This is derived from the DICTLABEL argument, for example '102001' or '012002' 
     In the final step, a df2 dataframe counts the # of 2600-plus-players per nation and timestamp via groupby and the size() function.
-    The df2 is written out to disk.   BASEFILENAMEfinal.out 
+    The df2 is written out to disk.   BASEFILENAMEfinal.dat
     
     Usage:  first get a FIDE file from https://ratings.fide.com/download/feb01frl.zip and extract it and rename it to 
     MMMYYYY.dat   then for example issue this:
@@ -37,7 +38,7 @@ rearrange = '20' + basefilename[3:5] + datedict[basefilename[0:3].lower()]
 print(rearrange) 
 dictlabel = rearrange  
 
-infile = 'C:/Users/Elite/chess/panel_app_chess/panel_app_chess/data/' + basefilename + '.TXT'
+infile = 'C:/Users/Elite/chess/panel_app_chess/panel_app_chess/data/full/' + basefilename + '.TXT'
 
 ctr = 0 
 outfile = 'C:/Users/Elite/chess/panel_app_chess/panel_app_chess/data/' + basefilename + '.out'
