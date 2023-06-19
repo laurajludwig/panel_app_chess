@@ -24,15 +24,18 @@ if len(sys.argv) != 3:
 rating_cutoff = int(sys.argv[1]) 
 basefilename =  sys.argv[2] 
 #dictlabel    =  sys.argv[3] 
-datedict = { 'jan' : '01', 'apr' : '04', 'jul' : '07', 'oct': '10', 'nov': '11'} # Nov instead of Oct in 2009 
+
+datedict = { 'jan' : '01', 'mar' : '03', 'apr' : '04', 'jul' : '07', 'oct': '10', 'nov' : '11'} # mar appears in 10, nov appears in 09 
+
 rearrange = '20' + basefilename[3:5] + datedict[basefilename[0:3].lower()]
 print(rearrange) 
 dictlabel = rearrange  
 
-infile = 'C:/Users/Elite/panel_app_chess/data/full/' + basefilename + '.txt'
+infile = 'D:/Users/Elite/panel_app_chess/data/full/' + basefilename + '.TXT'
+
 
 ctr = 0 
-outfile = 'C:/Users/Elite/panel_app_chess/data/' + basefilename + '.out'
+outfile = 'D:/Users/Elite/panel_app_chess/data/' + basefilename + '.out'
 with open(outfile, 'w') as out:
 
     with open(infile, 'r',encoding='ISO-8859-1') as dat:
@@ -68,7 +71,7 @@ data = data[['ds','nat','rtg']]  # reorder columns for easier to read output
 data['rtg'] = data['rtg'].astype('int')
 data =  data[data["rtg"] >= rating_cutoff]   
 df2 = data.groupby(['ds','nat']).size() 
-results = 'C:/Users/Elite/panel_app_chess/data/' + rearrange + 'final.dat' 
+results = 'D:/Users/Elite/panel_app_chess/data/' + rearrange + 'final.dat' 
 df2.to_csv(results,index=True,header=False) 
 out.close() 
 try:
