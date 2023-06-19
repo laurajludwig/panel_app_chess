@@ -1,4 +1,3 @@
-
 ''' process_ratings.py RATING_CUTOFF,BASEFILENAME 
     
     For the time being it reads in a FIDE Full Ratings List (FRL) Dataset, 
@@ -25,12 +24,12 @@ if len(sys.argv) != 3:
 rating_cutoff = int(sys.argv[1]) 
 basefilename =  sys.argv[2] 
 #dictlabel    =  sys.argv[3] 
-datedict = { 'jan' : '01', 'apr' : '04', 'jul' : '07', 'oct': '10'}
+datedict = { 'jan' : '01', 'apr' : '04', 'jul' : '07', 'oct': '10', 'nov': '11'} # Nov instead of Oct in 2009 
 rearrange = '20' + basefilename[3:5] + datedict[basefilename[0:3].lower()]
 print(rearrange) 
 dictlabel = rearrange  
 
-infile = 'C:/Users/Elite/panel_app_chess/data/full/' + basefilename + '.TXT'
+infile = 'C:/Users/Elite/panel_app_chess/data/full/' + basefilename + '.txt'
 
 ctr = 0 
 outfile = 'C:/Users/Elite/panel_app_chess/data/' + basefilename + '.out'
