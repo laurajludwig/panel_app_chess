@@ -1,5 +1,5 @@
 
-''' process_ratings.py RATING_CUTOFF,BASEFILENAME ,DICTLABEL
+''' process_ratings.py RATING_CUTOFF,BASEFILENAME 
     
     For the time being it reads in a FIDE Full Ratings List (FRL) Dataset, 
     which we fetched by wget and tar -xf, it is named like this example:  JAN05FRL.TXT 
@@ -38,17 +38,17 @@ rearrange = '20' + basefilename[3:5] + datedict[basefilename[0:3].lower()]
 print(rearrange) 
 dictlabel = rearrange  
 
-infile = 'C:/Users/Elite/chess/panel_app_chess/panel_app_chess/data/full/' + basefilename + '.TXT'
+infile = 'C:/Users/Elite/panel_app_chess/data/full/' + basefilename + '.TXT'
 
 ctr = 0 
-outfile = 'C:/Users/Elite/chess/panel_app_chess/panel_app_chess/data/' + basefilename + '.out'
+outfile = 'C:/Users/Elite/panel_app_chess/data/' + basefilename + '.out'
 with open(outfile, 'w') as out:
 
     with open(infile, 'r',encoding='ISO-8859-1') as dat:
         for r in dat:
             #print(r) 
             lstrip = r.lstrip() 
-            if lstrip[0].isdigit(): 
+            if lstrip[:1].isdigit():  # guard against lstrip being empty (unzipped file may have gap between header and data) 
                 rtg = next(iter(re.findall(r" [0-9]{4} ",r)), None) 
                 
                 nat = next(iter(re.findall(r" [A-Z]{3} ",r)), None) 
@@ -73,8 +73,9 @@ data = data[['ds','nat','rtg']]  # reorder columns for easier to read output
 data['rtg'] = data['rtg'].astype('int')
 data =  data[data["rtg"] >= rating_cutoff]   
 df2 = data.groupby(['ds','nat']).size() 
-results = 'C:/Users/Elite/chess/panel_app_chess/panel_app_chess/data/' + rearrange + 'final.dat' 
+results = 'C:/Users/Elite/panel_app_chess/data/' + rearrange + 'final.dat' 
 df2.to_csv(results,index=True,header=False) 
+out.close() 
 try:
     os.remove(outfile) 
 except:
