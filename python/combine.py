@@ -4,7 +4,7 @@
 combine.py
 
 Combine all the /data/*final* files into one file for the visualization, 
-/data/combined/full.dat
+/data/combined/finish.dat
 
 Created on Tue Jun 20 08:47:45 2023
 
