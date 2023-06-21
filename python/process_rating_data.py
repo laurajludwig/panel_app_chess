@@ -17,6 +17,7 @@
 
 ''' 
 import re,sys 
+import pathlib 
 import pandas as pd 
 if len(sys.argv) != 3:
     print("Usage", sys.argv[0] , "ratingcutoff basefilename")
@@ -30,8 +31,8 @@ datedict = { 'jan' : '01', 'mar' : '03', 'apr' : '04', 'jul' : '07', 'oct': '10'
 rearrange = '20' + basefilename[3:5] + datedict[basefilename[0:3].lower()]
 print(rearrange) 
 dictlabel = rearrange  
-
-infile = 'D:/Users/Elite/panel_app_chess/data/full/' + basefilename + '.TXT'
+# starting october 2012, we prefix filename with standard_ 
+infile = 'D:/Users/Elite/panel_app_chess/data/full/' + 'standard_' + basefilename + '.TXT'
 
 
 ctr = 0 
@@ -74,9 +75,10 @@ df2 = data.groupby(['ds','nat']).size()
 results = 'D:/Users/Elite/panel_app_chess/data/' + rearrange + 'final.dat' 
 df2.to_csv(results,index=True,header=False) 
 out.close() 
+path = pathlib.Path(outfile)
 try:
-    os.remove(outfile) 
+    path.unlink(outfile)  
 except:
-    print("Error trying to remove", outfile) 
+    print("Error trying to unlink remove", outfile) 
 
 sys.exit(0) 
