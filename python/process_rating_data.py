@@ -19,21 +19,21 @@
 import re,sys 
 import pathlib 
 import pandas as pd 
+from pathlib import Path
 if len(sys.argv) != 3:
     print("Usage", sys.argv[0] , "ratingcutoff basefilename")
     sys.exit(1) 
 rating_cutoff = int(sys.argv[1]) 
 basefilename =  sys.argv[2] 
-#dictlabel    =  sys.argv[3] 
+# mar appears in 10, nov appears in 09,  and sep appears in 12  (adjacent months missing) 
 
-datedict = { 'jan' : '01', 'mar' : '03', 'apr' : '04', 'jul' : '07', 'oct': '10', 'nov' : '11'} # mar appears in 10, nov appears in 09 
+datedict = { 'jan' : '01', 'mar' : '03', 'apr' : '04', 'jul' : '07', 'sep': '09', 'oct': '10', 'nov' : '11'}  
 
 rearrange = '20' + basefilename[3:5] + datedict[basefilename[0:3].lower()]
 print(rearrange) 
 dictlabel = rearrange  
 # starting october 2012, we prefix filename with standard_ 
 infile = 'D:/Users/Elite/panel_app_chess/data/full/' + 'standard_' + basefilename + '.TXT'
-
 
 ctr = 0 
 outfile = 'D:/Users/Elite/panel_app_chess/data/' + basefilename + '.out'
@@ -80,5 +80,6 @@ try:
     path.unlink(outfile)  
 except:
     print("Error trying to unlink remove", outfile) 
+
 
 sys.exit(0) 
