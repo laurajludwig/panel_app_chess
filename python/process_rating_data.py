@@ -17,6 +17,7 @@
 
 ''' 
 import re,sys 
+import pathlib 
 import pandas as pd 
 from pathlib import Path
 if len(sys.argv) != 3:
@@ -31,8 +32,8 @@ datedict = { 'jan' : '01', 'mar' : '03', 'apr' : '04', 'jul' : '07', 'sep': '09'
 rearrange = '20' + basefilename[3:5] + datedict[basefilename[0:3].lower()]
 print(rearrange) 
 dictlabel = rearrange  
-
-infile = 'D:/Users/Elite/panel_app_chess/data/full/' + basefilename + '.TXT'
+# starting october 2012, we prefix filename with standard_ 
+infile = 'D:/Users/Elite/panel_app_chess/data/full/' + 'standard_' + basefilename + '.TXT'
 
 ctr = 0 
 outfile = 'D:/Users/Elite/panel_app_chess/data/' + basefilename + '.out'
@@ -74,13 +75,11 @@ df2 = data.groupby(['ds','nat']).size()
 results = 'D:/Users/Elite/panel_app_chess/data/' + rearrange + 'final.dat' 
 df2.to_csv(results,index=True,header=False) 
 out.close() 
-my_unneeded_outfile = Path(outfile)
+path = pathlib.Path(outfile)
+try:
+    path.unlink(outfile)  
+except:
+    print("Error trying to unlink remove", outfile) 
 
-# Python 3.8+
-my_unneeded_outfile.unlink(missing_ok=True)
-#try:
-#   os.remove(outfile) 
-#except:
-#   print("Error trying to remove", outfile) 
 
 sys.exit(0) 
