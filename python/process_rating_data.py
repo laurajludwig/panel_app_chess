@@ -30,8 +30,8 @@ datedict = { 'jan' : '01', 'mar' : '03', 'apr' : '04', 'jul' : '07', 'oct': '10'
 rearrange = '20' + basefilename[3:5] + datedict[basefilename[0:3].lower()]
 print(rearrange) 
 dictlabel = rearrange  
-
-infile = 'D:/Users/Elite/panel_app_chess/data/full/' + basefilename + '.TXT'
+# starting in 2013, the wget target changes to STANDARD_JAN13FRL.TXT (for example) 
+infile = 'D:/Users/Elite/panel_app_chess/data/full/' + 'standard_' + basefilename + '.TXT'
 
 
 ctr = 0 
