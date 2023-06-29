@@ -25,9 +25,9 @@ if len(sys.argv) != 3:
     sys.exit(1) 
 rating_cutoff = int(sys.argv[1]) 
 basefilename =  sys.argv[2] 
-# mar appears in 10, nov appears in 09,  and sep appears in 12  (adjacent months missing) 
+# mar appears in 10, nov appears in 09,  and sep appears in 12  (adjacent months missing)  In 2023 we grab June. 
 
-datedict = { 'jan' : '01', 'mar' : '03', 'apr' : '04', 'jul' : '07', 'sep': '09', 'oct': '10', 'nov' : '11'}  
+datedict = { 'jan' : '01', 'mar' : '03', 'apr' : '04', 'jun': '06', 'jul' : '07', 'sep': '09', 'oct': '10', 'nov' : '11'}  
 
 rearrange = '20' + basefilename[3:5] + datedict[basefilename[0:3].lower()]
 print(rearrange) 
@@ -65,7 +65,7 @@ with open(outfile, 'w') as out:
                 pass 
                 #print("Do not process header", r) 
                 #print("Do not process header.") 
-ds = {'ds': dictlabel }  # datestamp column label and value,  oct 2001 data source 
+ds = {'ds': dictlabel }  # datestamp column label and value We need this in final output.
 data = pd.read_csv(outfile,encoding="ISO-8859-1",sep='\t',header=None,names=["rtg","nat"])
 data = data.assign(**ds) 
 data = data[['ds','nat','rtg']]  # reorder columns for easier to read output 
