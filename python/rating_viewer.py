@@ -1,17 +1,6 @@
-''' process_ratings.py RATING_CUTOFF,BASEFILENAME 
+''' rating_viewer.py RATING_CUTOFF BASEFILE  NATIONALITY 
     
-    For the time being it reads in a FIDE Full Ratings List (FRL) Dataset, 
-    which we fetched by wget and tar -xf and placed into /data/full.  It is named like this example:  JAN05FRL.TXT 
-
-    Pull out the Rating and Nationality, for only players whose ratings are >= RATING_CUTOFF
-    Load those into an output flat file.  BASEFILENAME.out
-    The BASEFILENAME is a transformation of the input file, JAN05 --> 200501 (YYYYMM keeps sort order) 
-    Then, a dataframe is constructed called df.a  We add a small dict (via 'assign') to df in order to represent the YYYYMM as a column.
-
-    In the final step, a df2 dataframe counts the # of 2600-plus-players per nation and timestamp via groupby and the size() function.
-
-    The df2 is written out to disk, example name '/data/200501final.dat' 
-    Usage example:    python ./process_rating_data.py 2600 JAN05FRL ---->     /data/200501final.dat 
+    To drill down to individual 2600-plus players for the Insights text 
 
     MG  June 2023
 
@@ -20,9 +9,7 @@ import re,sys
 import pathlib 
 import pandas as pd 
 from pathlib import Path
-#if len(sys.argv) != 3:
-#    print("Usage", sys.argv[0] , "ratingcutoff basefilename")
-#    sys.exit(1) 
+ 
 rating_cutoff = int(sys.argv[1]) 
 basefilename =  sys.argv[2] 
 nation = sys.argv[3] 
