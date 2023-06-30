@@ -59,3 +59,7 @@ YYYYMM	Label	Insight
 201504	2015-Q2	"China steady at 8. Germany is down to 6. Poland gains one to 10 (junior Duda). Russia down one to 47 and Ukraine steady at 23. USA gains one to 9, the ex-Philippines player Wesley So. "							
 201507	2015-Q3	"China gains two at 10 including women's world champion Yifan Hou. England down to 7. France and Hungary at 10.  India at 9. Russia down two to 45, and Ukraine holds at 23.  USA up two to 11.  Caruana (ex-Italy) and Zerebukh (ex-Ukraine) are added."							
 201510	2015-Q4	"Armenia is up to 10 with junior Ter-Sahakyan added. China and France hold at 10. Hungary now up 1 to 11 with Banusz added.India holds at 9. Russia up one to 46, Ukraine is holding at 23, and USA has gained one more to 12 with homegrown junior Burke added."							
+201601	2016-Q1	"Azerbaijan is at 7 and China up to 11. Hungary gains two to 13 with Papp and Hera added. Russia down two to 44, Ukraine down one to 22, and USA is holding at 12."							
+201604	2016-Q2	"Armenia is up to 11 with junior Grigoryan added. Hungary drops 3 to 10. Russia holds at 44, Ukraine steady at 22, and USA adds one to 13, homegrown junior J Xiong."							
+201607	2016-Q3	"Armenia drops one to 10. China holds at 11 and France at 10. India is at 9 and Israel is at 8. Poland is up to 12 with Piorun added. Russia up one to 45, Ukraine still at 22, and USA down one to 12."							
+201610	2016-Q4	"Armenia is two down to 8.  China still at 11, and England at 8. Poland holds at 12 and Russia gains 3 to 48. Ukraine gains one to 23 (V Onischuk) and USA holds at 12."							
